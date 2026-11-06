@@ -202,6 +202,12 @@ body.doc .top-inner {
   max-width: 38em;
 }
 
+.say {
+  white-space: nowrap;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
 .cta {
   display: flex;
   flex-wrap: wrap;
