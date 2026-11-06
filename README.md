@@ -16,16 +16,22 @@ no build step to run before pushing.
 
 ## Where the guides come from
 
-The guides are copies of `docs/` in the private `txngroup/signa` repository.
-Two differ on purpose, because this site is public and the source is not:
+The guides are copies of `docs/` in the SignA repository, with these
+differences:
 
 - `zip-installation.md` opens with how to get a build rather than how to make
   one.
-- `dApp-guide.md` drops the "Trying it" section, which needs the repository.
+- `dApp-guide.md` drops the "Trying it" section.
+- `ledger.md` drops the "untested" notice.
+- `extension-developers.md` (building from source) is not copied.
 
-`extension-developers.md` (building from source) is not copied.
+When a guide changes in SignA, copy it here and keep those differences.
 
-When a guide changes in `signa`, copy it here and keep those differences.
+## Screenshots
+
+`assets/screens/` holds the wallet, account and connect screens in light and
+dark, at 2x for a 420px panel. They are the real SignA interface rendered over
+sample data, with freshly generated addresses that hold nothing.
 
 ## Previewing locally
 

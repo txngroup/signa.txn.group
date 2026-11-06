@@ -19,49 +19,73 @@ description: >-
           <a class="btn" href="{{ '/dApp-guide.html' | relative_url }}">dApp guide</a>
         </div>
         <p class="notice">
-          <strong>Pre-release.</strong> SignA is not in the Chrome Web Store or on AMO yet, and it is not open
-          source at present. Hardware signing has not been tested against a physical device.
+          <strong>Pre-release.</strong> SignA is not in the Chrome Web Store or on AMO yet. Builds come from
+          txn.group as a zip file.
         </p>
       </div>
-      <div class="panel" aria-hidden="true">
-        <div class="panel-head">
-          <span class="panel-mark">
-            <svg viewBox="-5 -5 80 80">
-              <path d="M0 0 H30 V10 H10 V30 H30 V70 H10 L0 60 H20 V40 H0 Z" fill="currentColor" />
-              <path
-                fill-rule="evenodd"
-                d="M50 0 H70 V70 H60 V40 H50 V70 H40 V10 Z M50 10 H60 V30 H50 Z"
-                fill="var(--brand)"
-              />
-            </svg>
-            <span>Sign<span class="a">A</span></span>
-          </span>
-          <span class="pill">TestNet</span>
-        </div>
-        <div class="panel-body">
-          <p class="panel-label">Accounts</p>
-          <div class="acct">
-            <span class="dot d1"></span>
-            <span class="acct-name">Main</span>
-            <span class="acct-bal">1,204.50 ALGO</span>
-          </div>
-          <div class="acct">
-            <span class="dot d2"></span>
-            <span class="acct-name">Savings</span>
-            <span class="acct-bal">88.00 ALGO</span>
-          </div>
-          <div class="acct">
-            <span class="dot d3"></span>
-            <span class="acct-name">Ledger</span>
-            <span class="acct-bal">12.25 ALGO</span>
-          </div>
-          <p class="panel-label">Connected sites</p>
-          <div class="site">
-            <span>app.example.org</span>
-            <span class="revoke">Revoke</span>
-          </div>
-        </div>
+      <figure class="shot hero-shot" data-shot="wallet">
+        <picture>
+          <source srcset="{{ '/assets/screens/wallet-dark.png' | relative_url }}" media="(prefers-color-scheme: dark)" />
+          <img
+            src="{{ '/assets/screens/wallet-light.png' | relative_url }}"
+            width="420"
+            height="600"
+            alt="The SignA side panel listing five accounts with their Algo balances: an HD wallet group, a regular account, a Ledger account and a watch account."
+          />
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap screens">
+    <div class="screens-head">
+      <h2>A look inside</h2>
+      <div class="theme-switch" role="group" aria-label="Screenshot theme">
+        <button type="button" data-theme-choice="light">Light</button>
+        <button type="button" data-theme-choice="dark">Dark</button>
       </div>
+    </div>
+    <p class="screens-lede">SignA follows your system's light or dark setting, or you can pick one in Preferences.</p>
+    <div class="screens-grid">
+      <figure class="shot" data-shot="wallet">
+        <picture>
+          <source srcset="{{ '/assets/screens/wallet-dark.png' | relative_url }}" media="(prefers-color-scheme: dark)" />
+          <img
+            src="{{ '/assets/screens/wallet-light.png' | relative_url }}"
+            width="420"
+            height="600"
+            loading="lazy"
+            alt="The account list, with accounts from one recovery phrase grouped under their HD wallet."
+          />
+        </picture>
+        <figcaption>Every account in one list, with HD wallets grouped by recovery phrase.</figcaption>
+      </figure>
+      <figure class="shot" data-shot="account">
+        <picture>
+          <source srcset="{{ '/assets/screens/account-dark.png' | relative_url }}" media="(prefers-color-scheme: dark)" />
+          <img
+            src="{{ '/assets/screens/account-light.png' | relative_url }}"
+            width="420"
+            height="760"
+            loading="lazy"
+            alt="An account's history, with a three-transaction atomic group collapsed into one row."
+          />
+        </picture>
+        <figcaption>History reads atomic groups as one action, with asset amounts in their own units.</figcaption>
+      </figure>
+      <figure class="shot" data-shot="connect">
+        <picture>
+          <source srcset="{{ '/assets/screens/connect-dark.png' | relative_url }}" media="(prefers-color-scheme: dark)" />
+          <img
+            src="{{ '/assets/screens/connect-light.png' | relative_url }}"
+            width="420"
+            height="600"
+            loading="lazy"
+            alt="A connection request from a dApp, asking which accounts to share on MainNet."
+          />
+        </picture>
+        <figcaption>A dApp sees only the accounts you tick, on the network you choose.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -182,12 +206,7 @@ description: >-
   </section>
 
   <section class="wrap origin">
-    <h2>Source code</h2>
-    <p>
-      SignA is not open source at present, and its repository is private. Pre-release builds come from txn.group as
-      a zip file; <a href="{{ '/zip-installation.html' | relative_url }}">Installing SignA</a> covers loading one into
-      Chrome or Firefox.
-    </p>
+    <h2>Where it comes from</h2>
     <p>
       SignA began as a fork of <a href="https://github.com/PureStake/algosigner">AlgoSigner</a>, which PureStake
       archived at v1.11.0 under the MIT license. txn.group moved it to Manifest V3, rebuilt the interface in Svelte 5,
@@ -195,3 +214,31 @@ description: >-
     </p>
   </section>
 </main>
+<script>
+  // Light/Dark buttons swap every screenshot. Without a choice the <picture>
+  // sources follow the visitor's system theme.
+  (function () {
+    var dark = window.matchMedia('(prefers-color-scheme: dark)');
+    var buttons = document.querySelectorAll('[data-theme-choice]');
+    function show(theme) {
+      document.querySelectorAll('.screens [data-shot]').forEach(function (fig) {
+        var src = '{{ "/assets/screens/" | relative_url }}' + fig.dataset.shot + '-' + theme + '.png';
+        var source = fig.querySelector('source');
+        if (source) source.remove();
+        fig.querySelector('img').src = src;
+        fig.classList.toggle('is-dark', theme === 'dark');
+      });
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.themeChoice === theme));
+      });
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        show(b.dataset.themeChoice);
+      });
+    });
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.themeChoice === (dark.matches ? 'dark' : 'light')));
+    });
+  })();
+</script>

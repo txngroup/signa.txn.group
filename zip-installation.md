@@ -1,8 +1,8 @@
 # Installing SignA
 
-SignA is not in the Chrome Web Store or on AMO yet, and its source code is
-not public. Pre-release builds come from txn.group as a zip file. If you have
-one, install it with the steps below.
+SignA is not in the Chrome Web Store or on AMO yet. Pre-release builds come
+from txn.group as a zip file. If you have one, install it with the steps
+below.
 
 Only install a wallet build from a source you trust, and never use a
 developer build for accounts holding real value.

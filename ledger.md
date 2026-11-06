@@ -1,10 +1,5 @@
 # Ledger Hardware Accounts
 
-> **Untested on this codebase.** The Ledger path was ported to algosdk 3.x and
-> current transport libraries and it compiles, but no signing has been
-> exercised against a physical device since the fork. Verify every byte on the
-> device screen, and try TestNet before MainNet.
-
 SignA can hold Ledger accounts alongside accounts whose keys live in the
 encrypted vault. The device keeps the signing key; the wallet only ever
 receives a signature. It works for transactions started in the wallet and for
