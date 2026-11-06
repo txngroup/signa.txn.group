@@ -1,0 +1,197 @@
+---
+title: SignA
+description: >-
+  SignA is an Algorand wallet extension for Chrome and Firefox. It runs in the
+  side panel, speaks ARC-0027, and keeps keys encrypted in the browser.
+---
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Algorand wallet for Chrome and Firefox</p>
+        <h1>A wallet that stays open beside the dApp.</h1>
+        <p class="lede">
+          SignA lives in the browser side panel. Your keys stay encrypted in the extension, every connection is
+          scoped to one site and one network, and each signature is approved on its own.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="{{ '/zip-installation.html' | relative_url }}">Install</a>
+          <a class="btn" href="{{ '/dApp-guide.html' | relative_url }}">dApp guide</a>
+        </div>
+        <p class="notice">
+          <strong>Pre-release.</strong> SignA is not in the Chrome Web Store or on AMO yet, and it is not open
+          source at present. Hardware signing has not been tested against a physical device.
+        </p>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <div class="panel-head">
+          <span class="panel-mark">
+            <svg viewBox="-5 -5 80 80">
+              <path d="M0 0 H30 V10 H10 V30 H30 V70 H10 L0 60 H20 V40 H0 Z" fill="currentColor" />
+              <path
+                fill-rule="evenodd"
+                d="M50 0 H70 V70 H60 V40 H50 V70 H40 V10 Z M50 10 H60 V30 H50 Z"
+                fill="var(--brand)"
+              />
+            </svg>
+            <span>Sign<span class="a">A</span></span>
+          </span>
+          <span class="pill">TestNet</span>
+        </div>
+        <div class="panel-body">
+          <p class="panel-label">Accounts</p>
+          <div class="acct">
+            <span class="dot d1"></span>
+            <span class="acct-name">Main</span>
+            <span class="acct-bal">1,204.50 ALGO</span>
+          </div>
+          <div class="acct">
+            <span class="dot d2"></span>
+            <span class="acct-name">Savings</span>
+            <span class="acct-bal">88.00 ALGO</span>
+          </div>
+          <div class="acct">
+            <span class="dot d3"></span>
+            <span class="acct-name">Ledger</span>
+            <span class="acct-bal">12.25 ALGO</span>
+          </div>
+          <p class="panel-label">Connected sites</p>
+          <div class="site">
+            <span>app.example.org</span>
+            <span class="revoke">Revoke</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap features">
+    <h2>What SignA does</h2>
+    <div class="grid">
+      <article>
+        <h3>Side panel</h3>
+        <p>
+          The toolbar icon opens the wallet in Chrome's side panel or Firefox's sidebar, so it stays open while you
+          use a dApp. Signing prompts open in their own window.
+        </p>
+      </article>
+      <article>
+        <h3>Modern dApp support</h3>
+        <p>
+          SignA exposes an ARC-0027 web provider beside <code>window.algorand</code> and
+          <code>window.AlgoSigner</code>. use-wallet v5 connects without a shim.
+        </p>
+      </article>
+      <article>
+        <h3>Connections you can see</h3>
+        <p>
+          The wallet lists every dApp connection per network, with the addresses it can see and a button to revoke
+          it.
+        </p>
+      </article>
+      <article>
+        <h3>One account, many networks</h3>
+        <p>
+          An Algorand keypair is the same on every chain. SignA stores each account once and you pick the networks it
+          shows on.
+        </p>
+      </article>
+      <article>
+        <h3>Indexer optional</h3>
+        <p>
+          A network can point at a bare algod node. Features that need an indexer say so rather than failing.
+        </p>
+      </article>
+      <article>
+        <h3>Ledger accounts</h3>
+        <p>
+          Ledger addresses sit beside vault accounts. The device holds the key and the wallet only sees the
+          signature.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap split">
+    <div>
+      <h2>For dApp developers</h2>
+      <p>
+        SignA injects three routes into every page. All three share one signing implementation, so pick the one your
+        tooling expects.
+      </p>
+      <ul class="routes">
+        <li>
+          <a href="{{ '/dApp-integration.html' | relative_url }}">ARC-0027 provider</a>, found by use-wallet v5 and
+          other libraries built on <code>@agoralabs-sh/avm-web-provider</code>.
+        </li>
+        <li>
+          <a href="{{ '/dApp-integration.html' | relative_url }}"><code>window.algorand</code></a>, the ARC-0001 style
+          object with <code>enable</code> and <code>signTxns</code>.
+        </li>
+        <li>
+          <a href="{{ '/legacy-dApp-integration.html' | relative_url }}"><code>window.AlgoSigner</code></a>, kept for
+          dApps written against AlgoSigner before 1.10.0.
+        </li>
+      </ul>
+    </div>
+    <pre class="code"><code><span class="c">// Ask for accounts on TestNet</span>
+<span class="k">const</span> { accounts } = <span class="k">await</span> window.algorand.enable({
+  genesisID: <span class="s">'testnet-v1.0'</span>,
+});
+
+<span class="c">// Sign a transaction the dApp built</span>
+<span class="k">const</span> [signed] = <span class="k">await</span> window.algorand.signTxns([
+  { txn: base64Txn },
+]);</code></pre>
+  </section>
+
+  <section class="wrap">
+    <h2>Built-in networks</h2>
+    <p>
+      MainNet, TestNet and BetaNet use Nodely's free tier and cannot be edited. Add any other network, such as a local
+      AlgoKit node, from Settings. See <a href="{{ '/add-network.html' | relative_url }}">Adding a network</a>.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Network</th>
+            <th>Algod</th>
+            <th>Indexer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MainNet</td>
+            <td><code>mainnet-api.4160.nodely.dev</code></td>
+            <td><code>mainnet-idx.4160.nodely.dev</code></td>
+          </tr>
+          <tr>
+            <td>TestNet</td>
+            <td><code>testnet-api.4160.nodely.dev</code></td>
+            <td><code>testnet-idx.4160.nodely.dev</code></td>
+          </tr>
+          <tr>
+            <td>BetaNet</td>
+            <td><code>betanet-api.4160.nodely.dev</code></td>
+            <td><code>betanet-idx.4160.nodely.dev</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap origin">
+    <h2>Source code</h2>
+    <p>
+      SignA is not open source at present, and its repository is private. Pre-release builds come from txn.group as
+      a zip file; <a href="{{ '/zip-installation.html' | relative_url }}">Installing SignA</a> covers loading one into
+      Chrome or Firefox.
+    </p>
+    <p>
+      SignA began as a fork of <a href="https://github.com/PureStake/algosigner">AlgoSigner</a>, which PureStake
+      archived at v1.11.0 under the MIT license. txn.group moved it to Manifest V3, rebuilt the interface in Svelte 5,
+      and updated it to algosdk 3.x. The signing path is checked against byte-exact golden vectors in CI.
+    </p>
+  </section>
+</main>

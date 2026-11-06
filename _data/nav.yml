@@ -1,0 +1,18 @@
+- section: Using the wallet
+  pages:
+    - title: Installing SignA
+      url: /zip-installation.html
+    - title: Adding a network
+      url: /add-network.html
+    - title: Ledger accounts
+      url: /ledger.html
+    - title: Connection troubleshooting
+      url: /connection-issues.html
+- section: Building a dApp
+  pages:
+    - title: Overview
+      url: /dApp-guide.html
+    - title: window.algorand and ARC-0027
+      url: /dApp-integration.html
+    - title: Legacy window.AlgoSigner
+      url: /legacy-dApp-integration.html

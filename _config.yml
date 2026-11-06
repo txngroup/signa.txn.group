@@ -1,0 +1,40 @@
+# GitHub Pages builds this repository with Jekyll from `main` at `/`.
+#
+# The guides in this repository are plain Markdown with no front matter. Pages
+# turns them into HTML through its default plugins: optional-front-matter
+# picks them up, titles-from-headings takes the title from the first `#`,
+# and relative-links rewrites `foo.md` links to `foo.html`.
+
+title: SignA
+description: >-
+  An Algorand wallet for Chrome and Firefox. Manifest V3, side panel,
+  ARC-0027.
+url: https://signa.txn.group
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  # Keep straight quotes and apostrophes in the rendered pages.
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+  typographic_symbols: { hellip: "...", mdash: "---", ndash: "--", laquo: "<<", raquo: ">>", laquo_space: "<< ", raquo_space: " >>" }
+highlighter: rouge
+
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-titles-from-headings
+  - jekyll-relative-links
+
+titles_from_headings:
+  strip_title: false
+
+defaults:
+  - scope:
+      path: ''
+    values:
+      layout: default
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

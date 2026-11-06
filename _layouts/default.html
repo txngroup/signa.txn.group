@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% if page.url == "/" %}
+    <title>SignA - an Algorand wallet for Chrome and Firefox</title>
+    {% else %}
+    <title>{{ page.title | default: site.title }} - SignA</title>
+    {% endif %}
+    <meta name="description" content="{{ page.description | default: site.description | strip }}" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+    <link rel="icon" href="{{ '/assets/logo.svg' | relative_url }}" type="image/svg+xml" />
+    <link rel="icon" href="{{ '/assets/icon-32.png' | relative_url }}" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="{{ '/assets/icon-128.png' | relative_url }}" />
+    <meta property="og:title" content="{{ page.title | default: site.title }}" />
+    <meta property="og:description" content="{{ page.description | default: site.description | strip }}" />
+    <meta property="og:image" content="{{ site.url }}/assets/icon-128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}" />
+  </head>
+  <body class="{% if page.url == '/' %}home{% else %}doc{% endif %}">
+    <header class="top">
+      <div class="top-inner">
+        <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="SignA home">
+          <svg viewBox="-5 -5 80 80" aria-hidden="true">
+            <path d="M0 0 H30 V10 H10 V30 H30 V70 H10 L0 60 H20 V40 H0 Z" fill="currentColor" />
+            <path
+              fill-rule="evenodd"
+              d="M50 0 H70 V70 H60 V40 H50 V70 H40 V10 Z M50 10 H60 V30 H50 Z"
+              fill="var(--brand)"
+            />
+          </svg>
+          <span>Sign<span class="a">A</span></span>
+        </a>
+        <nav class="top-nav">
+          <a href="{{ '/zip-installation.html' | relative_url }}">Install</a>
+          <a href="{{ '/dApp-guide.html' | relative_url }}">dApps</a>
+          <a href="https://txn.group/">txn.group</a>
+        </nav>
+      </div>
+    </header>
+
+    {% if page.url == "/" %}
+    {{ content }}
+    {% else %}
+    <div class="doc-shell">
+      <aside class="doc-nav">
+        <details open>
+          <summary>Documentation</summary>
+          {% for group in site.data.nav %}
+          <p class="nav-section">{{ group.section }}</p>
+          <ul>
+            {% for item in group.pages %}
+            <li>
+              <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}aria-current="page"{% endif %}>{{ item.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </details>
+        <script>
+          // Collapse the page list on narrow screens so the guide comes first.
+          if (window.matchMedia('(max-width: 860px)').matches) {
+            document.currentScript.previousElementSibling.removeAttribute('open');
+          }
+        </script>
+      </aside>
+      <main class="prose">
+        {{ content }}
+      </main>
+    </div>
+    {% endif %}
+
+    <footer class="foot">
+      <div class="foot-inner">
+        <p>
+          SignA is made by <a href="https://txn.group/">txn.group</a>. It is not open source at present. It began
+          as a fork of <a href="https://github.com/PureStake/algosigner">AlgoSigner</a>, which is MIT licensed.
+        </p>
+        <p>Pre-release software. Do not put funds you cannot lose behind it.</p>
+      </div>
+    </footer>
+  </body>
+</html>
